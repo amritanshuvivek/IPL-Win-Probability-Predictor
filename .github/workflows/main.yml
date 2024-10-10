@@ -1,0 +1,51 @@
+name: IPL Win Probability Predictor CI
+
+# Triggers the workflow on push or pull request to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    # The runner that will execute the job
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Python 3.9 (or any version you need)
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+
+    # Step 3: Install the dependencies from requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Step 4: Run your tests (if any tests are available in the notebook or scripts)
+    - name: Run tests
+      run: |
+        pytest  # (add your test scripts here if available)
+
+    # Step 5: Build and deploy the Streamlit app
+    - name: Deploy IPL Predictor Streamlit App
+      run: |
+        streamlit run IPL\ Win\ Probability\ Predictor.ipynb  # Adjust the filename if needed
+
+    # Optional: Save model artifacts or logs (if needed)
+    - name: Upload Artifacts (Optional)
+      uses: actions/upload-artifact@v2
+      with:
+        name: model
+        path: pipe.pkl  # Path to your model file
+
