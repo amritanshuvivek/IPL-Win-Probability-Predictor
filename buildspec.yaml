@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade pip
+      - pip install numpy pandas scikit-learn pickle5
+
+  build:
+    commands:
+      - echo "Running model training script..."
+      - python ipl_win_probability_predictor.py
+      - echo "Build complete."
+
+  post_build:
+    commands:
+      - echo "Saving model artifact..."
+      - mkdir -p artifacts
+      - mv pipe.pkl artifacts/
+
+artifacts:
+  files:
+    - artifacts/*
+    - ipl_win_probability_predictor.py
+  discard-paths: yes
