@@ -113,7 +113,7 @@ X_train
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 
-trf = ColumnTransformer([('trf',OneHotEncoder(sparse=False,drop=None),['batting_team','bowling_team','city'])],remainder='passthrough')
+trf = ColumnTransformer([('trf',OneHotEncoder(sparse_output=False,drop=None),['batting_team','bowling_team','city'])],remainder='passthrough')
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
